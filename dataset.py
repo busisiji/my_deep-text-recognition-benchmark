@@ -60,6 +60,11 @@ class Batch_Balanced_Dataset(object):
             batch_size_list.append(str(_batch_size))
             Total_batch_size += _batch_size
 
+            # _data_loader = torch.utils.data.DataLoader(
+            #     _dataset, batch_size=_batch_size,
+            #     shuffle=False,
+            #     num_workers=int(opt.workers),
+            #     collate_fn=_AlignCollate, pin_memory=True)
             _data_loader = torch.utils.data.DataLoader(
                 _dataset, batch_size=_batch_size,
                 shuffle=True,
@@ -132,7 +137,7 @@ class LmdbDataset(Dataset):
 
         self.root = root
         self.opt = opt
-        self.env = lmdb.open(root, max_readers=32, readonly=True, lock=False, readahead=False, meminit=False)
+        self.env = lmdb.open(root, max_readers=32)
         if not self.env:
             print('cannot create lmdb from %s' % (root))
             sys.exit(0)
@@ -148,7 +153,7 @@ class LmdbDataset(Dataset):
                 """ Filtering part
                 If you want to evaluate IC15-2077 & CUTE datasets which have special character labels,
                 use --data_filtering_off and only evaluate on alphabets and digits.
-                see https://github.com/clovaai/deep-text-recognition-benchmark/blob/6593928855fb7abb999a99f428b3e4477d4ae356/dataset.py#L190-L192
+                see https://githubsamples:.com/clovaai/deep-text-recognition-benchmark/blob/6593928855fb7abb999a99f428b3e4477d4ae356/dataset.py#L190-L192
 
                 And if you want to evaluate them with the model trained with --sensitive option,
                 use --sensitive and --data_filtering_off,

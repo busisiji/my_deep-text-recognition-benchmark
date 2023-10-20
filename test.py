@@ -1,4 +1,5 @@
 import os
+import shutil
 import time
 import string
 import argparse
@@ -210,8 +211,12 @@ def test(opt):
     # print(model)
 
     """ keep evaluation model and result logs """
+    # os.makedirs(f'./result/{opt.exp_name}', exist_ok=True)
+    # os.system(f'cp {opt.saved_model} ./result/{opt.exp_name}/')
+    # 创建目录
     os.makedirs(f'./result/{opt.exp_name}', exist_ok=True)
-    os.system(f'cp {opt.saved_model} ./result/{opt.exp_name}/')
+    # 复制文件
+    shutil.copy(opt.saved_model, f'./result/{opt.exp_name}/')
 
     """ setup loss """
     if 'CTC' in opt.Prediction:
@@ -245,7 +250,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--eval_data', required=True, help='path to evaluation dataset')
     parser.add_argument('--benchmark_all_eval', action='store_true', help='evaluate 10 benchmark evaluation datasets')
-    parser.add_argument('--workers', type=int, help='number of data loading workers', default=4)
+    parser.add_argument('--workers', type=int, help='number of data loading workers', default=0)
     parser.add_argument('--batch_size', type=int, default=192, help='input batch size')
     parser.add_argument('--saved_model', required=True, help="path to saved_model to evaluation")
     """ Data processing """
