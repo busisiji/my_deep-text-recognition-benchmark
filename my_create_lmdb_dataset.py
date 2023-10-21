@@ -1,4 +1,5 @@
 """ a modified version of CRNN torch repository https://github.com/bgshih/crnn/blob/master/tool/create_dataset.py """
+import random
 
 import fire
 import os
@@ -97,6 +98,7 @@ def createDataset(inputPath, gtFile, outputPath, checkValid=True):
 
     cache = {}
     cnt = 1
+    datalist = random.shuffle(datalist) # 随机打乱
     for i in range(int(nSamples * 0.8),nSamples):
         writeTOLmdb(envValid,datalist,i,cnt,inputPath,outputPath,checkValid,cache,nSamples)
         cnt += 1

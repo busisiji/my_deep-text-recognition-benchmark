@@ -137,7 +137,7 @@ class LmdbDataset(Dataset):
 
         self.root = root
         self.opt = opt
-        self.env = lmdb.open(root, max_readers=32)
+        self.env = lmdb.open(root,  max_readers=32, readonly=True, lock=False, readahead=False, meminit=False)
         if not self.env:
             print('cannot create lmdb from %s' % (root))
             sys.exit(0)
