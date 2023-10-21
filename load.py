@@ -1,4 +1,5 @@
 import lmdb
+import sys
 
 def loadLmdb(path = r'result\train'):
     env = lmdb.open(path,  map_size=int(1e11), readonly=True, lock=False, readahead=False, meminit=False)
@@ -15,7 +16,10 @@ def loadLmdb(path = r'result\train'):
         print(label_key,label)
 
 if __name__ == '__main__':
-    loadLmdb(r'data_lmdb_release\training\MJ\MJ_train')
-    loadLmdb(r'data_lmdb_release\validation')
-    loadLmdb(r'result\train')
-    loadLmdb(r'result\valid')
+    # loadLmdb(r'data_lmdb_release\training\MJ\MJ_train')
+    # loadLmdb(r'data_lmdb_release\validation')
+    # loadLmdb(r'result\train')
+    # loadLmdb(r'result\valid')
+    print(sys.argv)
+    path = sys.argv[1]
+    loadLmdb(path)

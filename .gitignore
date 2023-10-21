@@ -3,7 +3,6 @@
 **/image_release/*
 **/result/*
 *.mdb
-*.pth
 *.tar
 *.sh
 *.txt
