@@ -249,6 +249,9 @@ def train(opt):
                 print(predicted_result_log)
                 log.write(predicted_result_log + '\n')
 
+                time_now = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+                log.write(f'模型保存时间：{time_now} 模型名称：best_norm_ED.pth\n')
+
         # save model per 1e+5 iter.
         if (iteration + 1) % 1e+5 == 0:
             torch.save(
@@ -261,7 +264,9 @@ def train(opt):
             break
         iteration += 1
 
-    plt_loss(opt.num_iter,opt.valInterval,plt_train_loss,plt_valid_loss)
+    time_now = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    log.write(f'模型训练完成时间：{time_now} 模型名称：best_accuracy.pth\n')
+    plt_loss(opt.num_iter,opt.valInterval,plt_train_loss)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
